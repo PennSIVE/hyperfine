@@ -2,3 +2,7 @@
 	path = nifti
 	url = ./nifti
 	datalad-id = 2756a640-a62b-444c-b14f-5b3f1fa2197c
+[submodule "mimosa"]
+	path = mimosa
+	url = ./mimosa
+	datalad-id = 8a2ff24c-3828-4339-820e-0ffa7e77f67b
