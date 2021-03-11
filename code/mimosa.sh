@@ -38,19 +38,21 @@ export SINGULARITYENV_ANTS_RANDOM_SEED=123
 # yay time to run
 for ses in 3T0 3T1 64mT; do
     mkdir -p $PWD/mimosa/sub-${sub}/ses-${ses}
-    if [ $ses = "64mT" ]; then
-        # same as below, but not N4
-        datalad run -i nifti/sub-$sub -i simg/mimosa_0.1.0.sif -o mimosa/sub-$sub/ses-${ses} --explicit \
-            singularity run --cleanenv \
-            -B /project -B $TMPDIR -B $TMPDIR:/tmp \
-            $PWD/simg/mimosa_0.1.0.sif \
-            $PWD/nifti $PWD/mimosa/sub-${sub}/ses-${ses} participant --participant_label $sub --session $ses --strip mass --register --whitestripe --debug --skip_bids_validator
-    else
-        datalad run -i nifti/sub-$sub -i simg/mimosa_0.1.0.sif -o mimosa/sub-$sub/ses-${ses} --explicit \
-            singularity run --cleanenv \
-            -B /project -B $TMPDIR -B $TMPDIR:/tmp \
-            $PWD/simg/mimosa_0.1.0.sif \
-            $PWD/nifti $PWD/mimosa/sub-${sub}/ses-${ses} participant --participant_label $sub --session $ses --strip mass --n4 --register --whitestripe --debug --skip_bids_validator
+    if [ ! -e $PWD/mimosa/sub-${sub}/ses-${ses}/mimosa_binary_mask_0.2.nii.gz ]; then
+        if [ $ses = "64mT" ]; then
+            # same as below, but not N4
+            datalad run -i nifti/sub-$sub -i simg/mimosa_0.1.0.sif -o mimosa/sub-$sub/ses-${ses} --explicit \
+                singularity run --cleanenv \
+                -B /project -B $TMPDIR -B $TMPDIR:/tmp \
+                $PWD/simg/mimosa_0.1.0.sif \
+                $PWD/nifti $PWD/mimosa/sub-${sub}/ses-${ses} participant --participant_label $sub --session $ses --strip mass --register --whitestripe --debug --skip_bids_validator
+        else
+            datalad run -i nifti/sub-$sub -i simg/mimosa_0.1.0.sif -o mimosa/sub-$sub/ses-${ses} --explicit \
+                singularity run --cleanenv \
+                -B /project -B $TMPDIR -B $TMPDIR:/tmp \
+                $PWD/simg/mimosa_0.1.0.sif \
+                $PWD/nifti $PWD/mimosa/sub-${sub}/ses-${ses} participant --participant_label $sub --session $ses --strip mass --n4 --register --whitestripe --debug --skip_bids_validator
+        fi
     fi
 done
 
