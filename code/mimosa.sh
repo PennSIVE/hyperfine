@@ -36,7 +36,7 @@ export SINGULARITYENV_NSLOTS=$LSB_DJOB_NUMPROC
 export SINGULARITYENV_ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=$LSB_DJOB_NUMPROC
 export SINGULARITYENV_ANTS_RANDOM_SEED=123
 # yay time to run
-for ses in 3T0 3T1 64mT; do
+for ses in 3T 3T0 3T1 64mT; do
     mkdir -p $PWD/mimosa/sub-${sub}/ses-${ses}
     if [ ! -e $PWD/mimosa/sub-${sub}/ses-${ses}/mimosa_binary_mask_0.2.nii.gz ]; then
         if [ $ses = "64mT" ]; then
