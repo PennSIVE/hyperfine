@@ -35,7 +35,7 @@ export SINGULARITYENV_LSB_DJOB_NUMPROC=$LSB_DJOB_NUMPROC
 export SINGULARITYENV_NSLOTS=$LSB_DJOB_NUMPROC
 export SINGULARITYENV_ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=$LSB_DJOB_NUMPROC
 export SINGULARITYENV_ANTS_RANDOM_SEED=123
-# yay time to run
+set +e # process other sessions if there's errors processing any particular one
 for ses in 3T 3T0 3T1 64mT; do
     mkdir -p $PWD/mimosa/sub-${sub}/ses-${ses}
     if [ ! -e $PWD/mimosa/sub-${sub}/ses-${ses}/mimosa_binary_mask_0.2.nii.gz ]; then
@@ -55,6 +55,7 @@ for ses in 3T 3T0 3T1 64mT; do
         fi
     fi
 done
+set -e
 
 # selectively push outputs only
 # ignore root dataset, despite recorded changes, needs coordinated
